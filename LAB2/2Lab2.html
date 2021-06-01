@@ -1,0 +1,76 @@
+﻿<html>
+ <head>
+ <title></title>
+ <script src="jquery-3.6.0.min.js">
+</script>
+ <script language="JavaScript"> 
+	function doWt(){
+	$("#youname").css("border-color", "black");
+	$("#password").css("border-color", "black");
+	$("#confirmation").css("border-color", "black");
+	$("#email").css("border-color", "black");
+	$("#longtext").css("border-color", "black");
+	}
+	function doSend(){
+	doWt();
+	var v=document.user.email.value.indexOf("@",1);
+	if(document.user.youname.value=="")
+	{ 
+	alert('Вы должны заполнить поле "Ваше имя"');
+	$("#youname").css("border-color", "red");
+	}
+	if(document.user.password.value=="")
+	{ 
+	alert('Вы должны заполнить поле "Пароль"');
+	$("#password").css("border-color", "red");
+	}
+	if(document.user.password.value.length < 4)
+	{ 
+	alert('Поле "Пароль" должно быть 4 и более символов');
+	$("#password").css("border-color", "red");
+	}
+	if(document.user.password.value != document.user.confirmation.value)
+	{ 
+	alert('Поле "Пароль" и поле "Подтверждения пароля" не совпадают');
+	$("#confirmation").css("border-color", "red");
+	}
+	if(document.user.email.value=="")
+	{
+	alert('Вы должны заполнить поле "E-mail"'); 
+	$("#email").css("border-color", "red");
+	}
+	if(v==-1)
+	{
+	alert('Адрес e-mail указан неверно');
+	$("#email").css("border-color", "red");
+	}
+	else {document.user.submit();
+	}
+	if(document.user.longtext.value=="")
+	{
+	alert('Вы должны заполнить поле "Сообщение"');
+	$("#longtext").css("border-color", "red");
+	}
+	if(document.user.longtext.value.length < 10)
+	{
+	alert('Поле "Сообщение" должно быть больше 10 символов');
+	$("#longtext").css("border-color", "red");
+	}
+	}
+ </script>
+</head>
+<body>
+<form name="user">
+<br>Ваше имя <input id="youname" type="text" name="youname" size="30"><br>
+<br>Пароль <input id="password" type="text" name="password" size="30"><br>
+<br>Подтверждения пароля <input id="confirmation" type="text" name="confirmation" size="30"><br>
+<br>E-mail <input id="email" type="text" name="email" size="30"><br>
+<br>Тема сообщения <input id="topic" type="text" name="topic" size="35"><br>
+<br>Сообщение <input id="longtext" type="text" name="longtext" size="55"><br>
+<br>
+<input type="button" value="Отправить" onClick="doSend()">
+<input type="reset" value="Очистить">
+</form>
+</p>
+</body>
+</html> 

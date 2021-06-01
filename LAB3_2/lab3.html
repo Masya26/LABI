@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Бикбулатов  ЛР2 Задание 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<h1 class="my-4">Пожалуйста, оставьте свой отзыв!</h1>
+				<form name="mes_form">
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<div class="input-group-text">Ваше имя</div>
+						</div>
+						<input type="text" name="name" class="form-control" size="30" placeholder="Фамилия, имя, отчество">
+					</div>
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<div class="input-group-text">Ваш email</div>
+						</div>
+						<input type="text" name="email" class="form-control" size="60" placeholder="example@example.com">
+					</div>
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<div class="input-group-text">Ваше сообщение</div>
+						</div>
+						<textarea name="mess" class="form-control" rows="3" placeholder="Комментарий"></textarea>
+					</div>
+					<div class="input-group">
+						<input type="button" value="Отправить" class="btn btn-lg btn-success" onclick="send_mes();">
+					</div>
+					<h1 class="my-4">Отзывы:</h1>
+					<section id="all_mess"></section>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script language="JavaScript" src="jquery-3.6.0.min.js"></script>
+	<script language="JavaScript">
+		get_mes();
+
+		function send_mes() {
+			var name = document.mes_form.name.value;
+			var email = document.mes_form.email.value;
+			var mess = document.mes_form.mess.value;
+			if (length(name)==0 || length(email)==0 || length(mess)==0){
+				alert("Необходимо заполнить все поля!");
+				return;
+			}
+			$.ajax({
+				type: "GET",
+				url: "add_mes.php?name=" + name + "&email=" + email + "&mess=" + mess,
+				dataType: "html",
+				success: function(data){
+					alert("Ваше сообщение отправлено");
+					get_mes();
+				}
+			});
+		}
+		function get_mes() {
+			$.ajax({
+				type: "GET",
+				url: "get_mes.php",
+				dataType: "html",
+				success: function(data){document.getElementById("all_mess").innerHTML = data;}
+			});
+		}
+		function length(str){
+			var strIter = str[Symbol.iterator]();
+			let str_lenght = 0;
+			for (let ch of strIter){str_lenght++;}
+			return str_lenght;
+		}
+	</script>
+</body>

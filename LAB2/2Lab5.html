@@ -1,0 +1,48 @@
+<html>
+ <head>
+ <title></title>
+ <script src="jquery-3.6.0.min.js">
+</script>
+</head>
+<body>
+<form>
+
+<div class="drag">
+<div id="ttt">
+<img src="image/1.png" height="200" width="200" ></img>
+</div>
+</div>
+</form>
+<script>
+	let ttt = document.getElementById('ttt'); 
+	ttt.onmousedown = function(e) { 
+	 let coords = getCoords(ttt); 
+	let shiftX = e.pageX - coords.left; 
+	let shiftY = e.pageY - coords.top; 
+	ttt.style.position = 'absolute'; 
+	document.body.appendChild(ttt); 
+	moveAt(e); 
+	ttt.style.zIndex = 1000;
+	function moveAt(e) { 
+	ttt.style.left = e.pageX - shiftX + 'px'; 
+	ttt.style.top = e.pageY - shiftY + 'px'; } 
+	document.onmousemove = function(e) { 
+	 moveAt(e); 
+	}; 
+	ttt.onmouseup = function() { 
+	document.onmousemove = null; 
+	ttt.onmouseup = null; 
+	}; 
+	} 
+	ttt.ondragstart = function() { return false; }; 
+	function getCoords(elem) { 
+	let box = elem.getBoundingClientRect(); 
+	return { 
+	top: box.top + pageYOffset, 
+	left: box.left + pageXOffset 
+  }; 
+ } 
+</script>
+</p>
+</body>
+</html> 
